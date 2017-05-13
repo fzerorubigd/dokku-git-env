@@ -7,7 +7,11 @@ main() {
 
   # Don't write the revision if there is no git repository.
   if [[ -d "$DOKKU_ROOT/$APP/refs" ]]; then
-    config_set --no-restart "$APP" ORIGIN_GIT_DIR="$DOKKU_ROOT/$APP"
+      config_set --no-restart "$APP" ORIGIN_GIT_DIR="$DOKKU_ROOT/$APP"
+      config_set --no-restart "$APP" LONGHASH=$(GIT_DIR=$DOKKU_ROOT/$APP git log -n1 --pretty="format:%H" | cat)
+      config_set --no-restart "$APP" SHORTHASH=$(GIT_DIR=$DOKKU_ROOT/$APP git log -n1 --pretty="format:%h" | cat)
+      config_set --no-restart "$APP" COMMITDATE=$(GIT_DIR=$DOKKU_ROOT/$APP git log -n1 --date="format:%D-%H-%I-%S" --pretty="format:%cd"| sed -e "s/\//-/g")
+      config_set --no-restart "$APP" COMMITCOUNT=$(GIT_DIR=$DOKKU_ROOT/$APP git rev-list HEAD --count| cat)
   fi
 }
 
