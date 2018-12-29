@@ -15,11 +15,11 @@ main() {
     commit_date=$(GIT_DIR=$DOKKU_ROOT/$APP git log -n1 --date="format:%D-%H-%I-%S" --pretty="format:%cd"| sed -e "s/\//-/g")
     commit_count=$(GIT_DIR=$DOKKU_ROOT/$APP git rev-list HEAD --count| cat)
 
-    config_set --no-restart "$APP" ORIGIN_GIT_DIR="$DOKKU_ROOT/$APP"
-    config_set --no-restart "$APP" LONG_HASH=${long_hash}
-    config_set --no-restart "$APP" SHORT_HASH=${short_hash}
-    config_set --no-restart "$APP" COMMIT_DATE=${commit_date}
-    config_set --no-restart "$APP" COMMIT_COUNT=${commit_count}
+#    config_set --no-restart "$APP" ORIGIN_GIT_DIR="$DOKKU_ROOT/$APP"
+#    config_set --no-restart "$APP" LONG_HASH=${long_hash}
+#    config_set --no-restart "$APP" SHORT_HASH=${short_hash}
+#    config_set --no-restart "$APP" COMMIT_DATE=${commit_date}
+#    config_set --no-restart "$APP" COMMIT_COUNT=${commit_count}
 
     if [[ "$IMAGE_SOURCE_TYPE" == "dockerfile" ]]; then
       output=" --build-arg LONG_HASH=${long_hash} --build-arg SHORT_HASH=${short_hash} --build-arg COMMIT_DATE=${commit_date} --build-arg COMMIT_COUNT=${commit_count}"
